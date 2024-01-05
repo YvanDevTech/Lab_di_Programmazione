@@ -27,17 +27,17 @@ public:
 
     bool isRegisterEmpty() const;
 
-    void startNewChat(User &otherUser);
-
-    void removeChat(const std::string &username);
+    bool startNewChat(User &otherUser);
 
     bool removeChat(const std::string &username);
 
-    Chat &getChat(const User &otherUser) const;
 
-    void sendMessage(const User &addressee, const std::string &text);
+
+    const std::shared_ptr<Chat> getChat(const User &otherUser) const;
 
     bool sendMessage(const User &addressee, const std::string &text);
+
+
 
     void addChat(const User &username, const Chat &newChat);
 
