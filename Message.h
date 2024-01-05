@@ -11,7 +11,7 @@
 
 class Message {
 public:
-    Message(std::string s, std::string a, std::string t);
+    Message(const std::string &s, const std::string &a, const std::string &t);
 
     const std::string &getSender() const;
 
