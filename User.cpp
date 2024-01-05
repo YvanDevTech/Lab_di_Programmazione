@@ -4,20 +4,25 @@
 
 #include "User.h"
 
-std::list<std::string> User::usedNicks;
+//std::list<std::string> User::usedNicks;
+std::list<std::string> NicknameManager::usedNicks;
 
-User::User(const std::string &nk) {
+/*User::User(const std::string &nk) {
     if (usedNicks.empty() || std::find(usedNicks.begin(), usedNicks.end(), nk) == usedNicks.end()) {
         nick = nk;
         usedNicks.push_back(nick);
     } else
         throw std::invalid_argument(" nickname selezionato gia esistente.");
+}*/
+public:
+    User(const std::string &nk) {
+        NicknameManager::reserveNickname(nk);
+        nick = nk;
+    }
+    const std::string &getNick() const {
+        return nick;
+    }
 }
-
-const std::string &User::getNick() const {
-    return nick;
-}
-
 bool User::isRegisterEmpty() const {
     return chatRegister.isEmpty();
 }
@@ -29,7 +34,7 @@ void User::startNewChat(User &otherUser) {
     if (chatList.empty() || chatList.find(otherUser.nick) == chatList.end()) {
         auto chatShared = chatRegister.addChat(otherUser.nick, newChat);
         othersChatList.emplace(nick, chatShared);
-        std::cout << nick << " Nuova messaggeria iniziata " << otherUser.nick << "." << std::endl;
+
     } else
         throw std::invalid_argument("La messaggeria con questo user esiste gia.");
 }
@@ -39,16 +44,14 @@ void User::addChat(const User &otherUser, const Chat &newChat) {
 }
 
 void User::removeChat(const std::string &username) {
-    std::cout << "Messaggeria tra te e " << username << " è stata rimossa." << std::endl;
+
     chatRegister.removeChat(username);
 }
 
 void User::sendMessage(const User &addressee, const std::string &text) {
     auto &chat = getChat(addressee);
     chat.addMessage(Message(nick, addressee.nick, text));
-    std::cout << "Il messaggio e stato aggiunto tra " << nick << " e " << addressee.nick << std::endl;
-    std::cout << "    Mittente: " << nick << std::endl << "    Indirizzo: " << addressee.nick << std::endl;
-    std::cout << "    Text: '" << text << "'" << std::endl;
+    
 }
 
 Chat &User::getChat(const User &otherUser) const {
@@ -63,6 +66,6 @@ const std::list<std::string> *User::getUsedNicks() {
     return &usedNicks;
 }
 
-
+}
 
 
