@@ -4,7 +4,7 @@
 
 #include "Message.h"
 
-Message::Message(std::string s, std::string a, std::string t) : sender(std::move(s)), addressee(std::move(a)),
+Message::Message(const std::string &s, const std::string &a, const std::string &t) : sender(std::move(s)), addressee(std::move(a)),
                                                                 text(std::move(t)) {
     time = std::chrono::system_clock::now();
 }
