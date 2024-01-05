@@ -11,13 +11,13 @@
 
 class Chat {
 public:
-    Chat(std::string u1, std::string u2) : user1(std::move(u1)), user2(std::move(u2)) {};
+    Chat(std::string u1, std::string u2) : person1(std::move(u1)), person2(std::move(u2)) {};
 
     void addMessage(const Message &msg);
 
     std::_List_iterator<Message> firstUnreadMessage();
 
-    void open();
+    //void open();
 
     void deleteAll();
 
@@ -35,10 +35,12 @@ public:
 
     bool operator!=(const Chat &rhs) const;
 
+    void Chat::readMessage(int msgPos) const;
+
 private:
-    std::string user1;
-    std::string user2;
-    std::list<Message> messages;
+    std::string person1;
+    std::string person2;
+    std::vector<Message> messages;
 
 };
 
