@@ -37,6 +37,8 @@ public:
 
     void sendMessage(const User &addressee, const std::string &text);
 
+    bool sendMessage(const User &addressee, const std::string &text);
+
     void addChat(const User &username, const Chat &newChat);
 
     static const std::list<std::string> *getUsedNicks();
