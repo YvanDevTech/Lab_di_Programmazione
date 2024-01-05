@@ -4,13 +4,14 @@
 
 #include "Chat.h"
 
+
 void Chat::addMessage(const Message &msg) {
     if (msg.getAddressee() != person1 && msg.getAddressee() != person2)
         throw std::invalid_argument("Messaggio non corrispondente a nessun user.");
     messages.emplace_back(msg.getSender(), msg.getAddressee(), msg.getText());
 }
 
-std::_List_iterator<Message> Chat::firstUnreadMessage() const {
+auto Chat::firstUnreadMessage() const -> auto {
     auto result = messages.end();
     for (auto it = messages.begin(); it != messages.end(); it++) {
         if (!it->isRead()) {
@@ -20,7 +21,6 @@ std::_List_iterator<Message> Chat::firstUnreadMessage() const {
     }
     return result;
 }
-
 /*void Chat::open() {
     std::cout << "Hai aperto una messaggeria tra " << person1 << " e " << person2 << std::endl;
     for (auto it = firstUnreadMessage(); it != messages.end(); it++) {
@@ -68,6 +68,7 @@ void Chat::readMessage(int msgPos) const {
     std::cout << "Mittente: " << it->getSender() << std::endl;
     std::cout << "Testo: " << it->getText() << std::endl;
     std::cout << "Letto: " << (it->isRead() ? "Sì" : "No") << std::endl;
+
 }
 
 /*const std::list<Message> *Chat::getMessages() const {
