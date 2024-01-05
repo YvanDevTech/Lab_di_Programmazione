@@ -3,6 +3,7 @@
 //
 
 #include "User.h"
+#include "NicknameManager.h"
 
 //std::list<std::string> User::usedNicks;
 std::list<std::string> NicknameManager::usedNicks;
@@ -14,20 +15,20 @@ std::list<std::string> NicknameManager::usedNicks;
     } else
         throw std::invalid_argument(" nickname selezionato gia esistente.");
 }*/
-public:
-    User(const std::string &nk) {
+
+User::User(const std::string &nk) {
         NicknameManager::reserveNickname(nk);
         nick = nk;
     }
-    const std::string &getNick() const {
+    /*const std::string &getNick()  {
         return nick;
-    }
-}
+    }*/
+
 bool User::isRegisterEmpty() const {
     return chatRegister.isEmpty();
 }
 
-void User::startNewChat(User &otherUser) {
+bool User::startNewChat(User &otherUser) {
     Chat newChat(nick, otherUser.nick);
     auto &chatList = chatRegister.chats;
     auto &othersChatList = otherUser.chatRegister.chats;
@@ -45,7 +46,7 @@ void User::addChat(const User &otherUser, const Chat &newChat) {
     chatRegister.addChat(otherUser.nick, newChat);
 }
 
-void User::removeChat(const std::string &username) {
+bool User::removeChat(const std::string &username) {
 
     auto it = chatRegister.chats.find(username);
 
@@ -57,10 +58,10 @@ void User::removeChat(const std::string &username) {
     }
 }
 
-void User::sendMessage(const User &addressee, const std::string &text) {
+bool User::sendMessage(const User &addressee, const std::string &text) {
    // auto &chat = getChat(addressee);
     //chat.addMessage(Message(nick, addressee.nick, text));
-    Chat* chat = getChat(addressee);
+    std::shared_ptr<Chat> chat =  getChat(addressee);
 
     if (chat) {
         chat->addMessage(Message(nick, addressee.nick, text));
@@ -70,16 +71,16 @@ void User::sendMessage(const User &addressee, const std::string &text) {
     }
 }
 
-Chat* User::getChat(const User &otherUser) const {
-    //return chatRegister.getChat(otherUser.getNick());
+const std::shared_ptr<Chat> User::getChat(const User &otherUser) const {
     auto it = chatRegister.chats.find(otherUser.nick);
 
     if (it != chatRegister.chats.end()) {
-        return &(it->second);  // Restituisce un puntatore alla chat trovata
+        return it->second;  // Restituisce un puntatore alla chat trovata
     } else {
         return nullptr;  // La chat con l'utente specificato non esiste
     }
 }
+
 
 User::~User() {
     usedNicks.remove(nick);
@@ -89,6 +90,6 @@ const std::list<std::string> *User::getUsedNicks() {
     return &usedNicks;
 }
 
-}
+
 
 
