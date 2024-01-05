@@ -31,6 +31,8 @@ public:
 
     void removeChat(const std::string &username);
 
+    bool removeChat(const std::string &username);
+
     Chat &getChat(const User &otherUser) const;
 
     void sendMessage(const User &addressee, const std::string &text);
