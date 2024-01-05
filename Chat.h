@@ -7,6 +7,8 @@
 #include <iostream>
 #include <list>
 #include "Message.h"
+#include <vector>
+#include <valarray>
 
 
 class Chat {
@@ -15,7 +17,7 @@ public:
 
     void addMessage(const Message &msg);
 
-    std::_List_iterator<Message> firstUnreadMessage();
+    auto firstUnreadMessage() const;
 
     //void open();
 
@@ -35,12 +37,15 @@ public:
 
     bool operator!=(const Chat &rhs) const;
 
-    void Chat::readMessage(int msgPos) const;
+    void readMessage(int msgPos) const;
 
 private:
     std::string person1;
     std::string person2;
     std::vector<Message> messages;
+
+
+
 
 };
 
