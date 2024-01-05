@@ -58,13 +58,27 @@ void User::removeChat(const std::string &username) {
 }
 
 void User::sendMessage(const User &addressee, const std::string &text) {
-    auto &chat = getChat(addressee);
-    chat.addMessage(Message(nick, addressee.nick, text));
+   // auto &chat = getChat(addressee);
+    //chat.addMessage(Message(nick, addressee.nick, text));
+    Chat* chat = getChat(addressee);
 
+    if (chat) {
+        chat->addMessage(Message(nick, addressee.nick, text));
+        return true;  // Il messaggio è stato inviato con successo
+    } else {
+        return false;  // La chat con l'utente specificato non esiste
+    }
 }
 
-Chat &User::getChat(const User &otherUser) const {
-    return chatRegister.getChat(otherUser.getNick());
+Chat* User::getChat(const User &otherUser) const {
+    //return chatRegister.getChat(otherUser.getNick());
+    auto it = chatRegister.chats.find(otherUser.nick);
+
+    if (it != chatRegister.chats.end()) {
+        return &(it->second);  // Restituisce un puntatore alla chat trovata
+    } else {
+        return nullptr;  // La chat con l'utente specificato non esiste
+    }
 }
 
 User::~User() {
