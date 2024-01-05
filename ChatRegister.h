@@ -24,7 +24,6 @@ public:
 
     bool isEmpty() const;
 
-private:
     std::map<std::string, std::shared_ptr<Chat>> chats;
 
 };
