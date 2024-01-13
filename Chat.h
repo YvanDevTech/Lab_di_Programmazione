@@ -19,7 +19,7 @@ public:
 
     auto firstUnreadMessage() const;
 
-    //void open();
+
 
     void deleteAll();
 
@@ -39,10 +39,20 @@ public:
 
     void readMessage(int msgPos) const;
 
+    int getMessageCount() const;
+    int getReadMessageCount() const;
+    int getUnreadMessageCount() const;
+
+    // Ajoutez ces fonctions pour gérer les messages lus et non lus
+
+    void markMessageAsRead(int index);
+    bool isMessageRead(int index) const;
+
 private:
     std::string person1;
     std::string person2;
     std::vector<Message> messages;
+    std::vector<bool> messageReadStatus;
 
 
 
