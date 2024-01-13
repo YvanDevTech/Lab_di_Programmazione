@@ -33,16 +33,7 @@ void Chat::deleteAll() {
 }
 
 void Chat::deleteMsg(int msgPos) {
-    /*if (msgPos > messages.size() || msgPos < 0)
-        throw std::out_of_range("Il messaggio selezionato non esiste.");
 
-    auto it = messages.begin();
-    int i = 0;
-    while (i < msgPos) {
-        it++;
-        i++;
-    }
-    messages.erase(it);*/
     if (msgPos >= messages.size() || msgPos < 0)
         throw std::out_of_range("Il messaggio selezionato non esiste.");
 
@@ -94,4 +85,35 @@ bool Chat::findMessage(const std::string &text) {
     return result;
 }
 
+int Chat::getMessageCount() const {
+    return messages.size();
+}
+
+int Chat::getReadMessageCount() const {
+    int readCount = 0;
+    for (bool readStatus : messageReadStatus) {
+        if (readStatus) {
+            readCount++;
+        }
+    }
+    return readCount;
+}
+
+int Chat::getUnreadMessageCount() const {
+    return getMessageCount() - getReadMessageCount();
+}
+
+
+void Chat::markMessageAsRead(int index) {
+    if (index >= 0 && index < static_cast<int>(messageReadStatus.size())) {
+        messageReadStatus[index] = true;  // Marquer le message comme lu
+    }
+}
+
+bool Chat::isMessageRead(int index) const {
+    if (index >= 0 && index < static_cast<int>(messageReadStatus.size())) {
+        return messageReadStatus[index];
+    }
+    return false;  // Par défaut, considéré comme non lu si l'index est hors limites
+}
 
