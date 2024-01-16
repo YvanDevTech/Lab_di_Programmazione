@@ -29,7 +29,7 @@ TEST(ChatTest, DeleteAll) {
     Chat chat("User1", "User2");
     Message msg("User1", "User2", "Hello");
     chat.addMessage(msg);
-
+    ASSERT_EQ(chat.getMessageCount(), 1);
     chat.deleteAll();
 
     ASSERT_EQ(chat.getMessageCount(), 0);
@@ -77,18 +77,24 @@ TEST(ChatTest, GetReadAndUnreadMessageCount) {
     // Marking the first message as read
     simpleChat.markMessageAsRead(0);
 
-    ASSERT_EQ(simpleChat.getReadMessageCount(), 0);
-    ASSERT_EQ(simpleChat.getUnreadMessageCount(), 2);
+    ASSERT_EQ(simpleChat.getReadMessageCount(), 1);
+    ASSERT_EQ(simpleChat.getUnreadMessageCount(), 1);
 }
 
 TEST(ChatTest, IsMessageRead) {
     Chat simpleChat("Habib", "Leroy");
     simpleChat.addMessage(Message("Habib", "Leroy", "Ciao, come stai?"));
 
+    // Verifica che prima del set del messaggio come letto il conteggio dei messaggi letti sia 0
+    ASSERT_EQ(simpleChat.getReadMessageCount(), 0);
+
     ASSERT_FALSE(simpleChat.isMessageRead(0));
 
-    // Marking the message as read
+    // Set del messaggio come letto
     simpleChat.markMessageAsRead(0);
 
-    ASSERT_FALSE(simpleChat.isMessageRead(0));
+    // Verifica che dopo il set del messaggio come letto il conteggio dei messaggi letti sia 1
+    ASSERT_EQ(simpleChat.getReadMessageCount(), 1);
+
+    ASSERT_TRUE(simpleChat.isMessageRead(0));
 }
