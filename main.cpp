@@ -31,14 +31,21 @@ int main() {
 
     // Ingrid risponde a Jordan
     ingrid->sendMessage(*jordan, "Si, sarebbe fantastico! Londra e una citta meravigliosa.");
+    chatfromJordanIngrid->markMessageAsRead(0);
+    const std::shared_ptr<Chat> updatedChatfromJordanIngrid = jordan->getChat(*ingrid);
 
-// Leggi il messaggio di Ingrid
-    if (chatfromJordanIngrid) {
-        int messageCount = chatfromJordanIngrid->getMessageCount();
-        if (messageCount > 0) {
-            // Esempio di lettura di un messaggio
-            chatfromJordanIngrid->readMessage(1, std::cout);
+    if (updatedChatfromJordanIngrid) {
+        int totalMessages = updatedChatfromJordanIngrid->getMessageCount();
+        int readMessages = updatedChatfromJordanIngrid->getReadMessageCount();
+        int unreadMessages = updatedChatfromJordanIngrid->getUnreadMessageCount();
 
+        std::cout << "Total Messages: " << totalMessages << std::endl;
+        std::cout << "Read Messages: " << readMessages << std::endl;
+        std::cout << "Unread Messages: " << unreadMessages << std::endl;
+
+        // Leggi il messaggio di Ingrid nella chat aggiornata
+        if (totalMessages > 0) {
+            updatedChatfromJordanIngrid->readMessage(totalMessages - 1, std::cout);
         } else {
             std::cout << "La chat è vuota. Nessun messaggio da leggere." << std::endl;
         }
@@ -67,6 +74,13 @@ int main() {
     } else {
         std::cout << "La chat non esiste." << std::endl;
     }
+    int totalMessage = chatfromYvan->getMessageCount();
+    int readMessage = chatfromYvan->getReadMessageCount();
+    int unreadMessage = chatfromYvan->getUnreadMessageCount();
+
+    std::cout << "Total Message: " << totalMessage << std::endl;
+    std::cout << "Read Message: " << readMessage << std::endl;
+    std::cout << "Unread Message: " << unreadMessage << std::endl;
 
 
     delete michelle;
