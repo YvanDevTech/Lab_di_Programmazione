@@ -35,51 +35,6 @@ public:
 
     bool operator!=(const Chat &rhs) const;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     bool isMessageRead(int index) const;
 
     void readMessage(int msgPos, std::ostream& outputStream ) const;
