@@ -14,8 +14,6 @@ public:
 
     Message(const std::string &s, const std::string &a, const std::string &t);
 
-
-
     const std::string &getSender() const;
 
     void setSender(const std::string &sender);
@@ -50,6 +48,4 @@ private:
     decltype(std::chrono::system_clock::now()) time;
 
 };
-
-
 #endif //PROJECT_CHAT_MESSAGE_H

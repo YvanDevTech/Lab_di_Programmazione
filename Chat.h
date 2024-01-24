@@ -9,17 +9,15 @@
 #include "Message.h"
 #include <vector>
 #include <valarray>
+#include <optional>
 
 
 class Chat {
 public:
-    Chat(std::string u1, std::string u2) : person1(std::move(u1)), person2(std::move(u2)) {};
+
+    Chat(const std::string &user1, const std::string &user2);
 
     void addMessage(const Message &msg);
-
-    auto firstUnreadMessage() const;
-
-
 
     void deleteAll();
 
@@ -29,7 +27,7 @@ public:
 
     const std::string &getUser2() const;
 
-    const std::list<Message> *getMessages() const;
+    const std::vector<Message> *getMessages() const;
 
     bool findMessage(const std::string &text);
 
@@ -37,17 +35,63 @@ public:
 
     bool operator!=(const Chat &rhs) const;
 
-    void readMessage(int msgPos) const;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    bool isMessageRead(int index) const;
+
+    void readMessage(int msgPos, std::ostream& outputStream ) const;
 
     int getMessageCount() const;
     int getReadMessageCount() const;
     int getUnreadMessageCount() const;
 
-    // Ajoutez ces fonctions pour gérer les messages lus et non lus
 
     void markMessageAsRead(int index);
-    bool isMessageRead(int index) const;
 
+    ~Chat();
 private:
     std::string person1;
     std::string person2;
@@ -55,9 +99,5 @@ private:
     std::vector<bool> messageReadStatus;
 
 
-
-
 };
-
-
 #endif //PROJECT_CHAT_CHAT_H

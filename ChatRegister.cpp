@@ -13,6 +13,44 @@ void ChatRegister::removeChat(const std::string &username) {
     chats.erase(username);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void ChatRegister::deleteAll() {
     chats.clear();
 }
@@ -32,4 +70,3 @@ Chat &ChatRegister::getChat(const std::string &username) const {
 bool ChatRegister::isEmpty() const {
     return chats.empty();
 }
-

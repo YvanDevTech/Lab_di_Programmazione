@@ -27,6 +27,4 @@ public:
     std::map<std::string, std::shared_ptr<Chat>> chats;
 
 };
-
-
 #endif //PROJECT_CHAT_CHATREGISTER_H

@@ -3,26 +3,285 @@
 //
 
 #include "User.h"
-#include "NicknameManager.h"
 
-//std::list<std::string> User::usedNicks;
-std::list<std::string> NicknameManager::usedNicks;
 
-/*User::User(const std::string &nk) {
-    if (usedNicks.empty() || std::find(usedNicks.begin(), usedNicks.end(), nk) == usedNicks.end()) {
-        nick = nk;
-        usedNicks.push_back(nick);
-    } else
-        throw std::invalid_argument(" nickname selezionato gia esistente.");
-}*/
+std::vector<std::string> User::usedNicks;
 
 User::User(const std::string &nk) {
-        NicknameManager::reserveNickname(nk);
-        nick = nk;
-    }
-    /*const std::string &getNick()  {
-        return nick;
-    }*/
+
+    nick = nk;
+    usedNicks.push_back(nk);
+}
+
+const std::string &User::getNick() const {
+    return nick;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 bool User::isRegisterEmpty() const {
     return chatRegister.isEmpty();
@@ -59,8 +318,7 @@ bool User::removeChat(const std::string &username) {
 }
 
 bool User::sendMessage(const User &addressee, const std::string &text) {
-   // auto &chat = getChat(addressee);
-    //chat.addMessage(Message(nick, addressee.nick, text));
+
     std::shared_ptr<Chat> chat =  getChat(addressee);
 
     if (chat) {
@@ -81,15 +339,10 @@ const std::shared_ptr<Chat> User::getChat(const User &otherUser) const {
     }
 }
 
-
 User::~User() {
-    usedNicks.remove(nick);
+    usedNicks.erase(std::remove(usedNicks.begin(), usedNicks.end(), nick), usedNicks.end());
 }
 
-const std::list<std::string> *User::getUsedNicks() {
+const std::vector<std::string> *User::getUsedNicks() {
     return &usedNicks;
 }
-
-
-
-

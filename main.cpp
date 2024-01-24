@@ -31,9 +31,9 @@ int main() {
 
     // Ingrid risponde a Jordan
     ingrid->sendMessage(*jordan, "Si, sarebbe fantastico! Londra e una citta meravigliosa.");
-    chatfromJordanIngrid->markMessageAsRead(0);
-    const std::shared_ptr<Chat> updatedChatfromJordanIngrid = jordan->getChat(*ingrid);
 
+    const std::shared_ptr<Chat> updatedChatfromJordanIngrid = jordan->getChat(*ingrid);
+    chatfromJordanIngrid->markMessageAsRead(0);
     if (updatedChatfromJordanIngrid) {
         int totalMessages = updatedChatfromJordanIngrid->getMessageCount();
         int readMessages = updatedChatfromJordanIngrid->getReadMessageCount();
@@ -52,6 +52,7 @@ int main() {
     } else {
         std::cout << "La chat non esiste." << std::endl;
     }
+
 
 
     yvan->startNewChat(*michelle);
